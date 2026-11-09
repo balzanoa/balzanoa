@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8" />
+<title>P-07 Inicio — Opción B</title>
+<style>
+  @font-face { font-family: Inter; src: url("file:///usr/share/fonts/truetype/macos/Inter-Regular.ttf"); font-weight: 400; }
+  @font-face { font-family: Inter; src: url("file:///usr/share/fonts/truetype/macos/Inter-Medium.ttf"); font-weight: 500; }
+  @font-face { font-family: Inter; src: url("file:///usr/share/fonts/truetype/macos/Inter-SemiBold.ttf"); font-weight: 600; }
+  @font-face { font-family: Inter; src: url("file:///usr/share/fonts/truetype/macos/Inter-Bold.ttf"); font-weight: 700; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #efe8dc; font-family: Inter, system-ui, sans-serif; color: #1c1917; }
+  body { width: 1280px; height: 1180px; overflow: hidden; }
+  .app { display: grid; grid-template-columns: 220px 1fr; height: 1180px; }
+  .nav { background: #1c3d3a; color: #d7e4e2; padding: 22px 16px; display: flex; flex-direction: column; gap: 4px; }
+  .brand { display: flex; align-items: center; gap: 10px; padding: 0 4px 22px; }
+  .logo { width: 34px; height: 34px; border-radius: 10px; background: #c4a574; color: #1c1917; font-weight: 800; font-size: 13px; display: grid; place-items: center; }
+  .brand b { color: #fff; font-size: 14px; display: block; }
+  .brand span { color: #a8c3bf; font-size: 11px; }
+  .nav-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; border-radius: 10px; font-size: 13.5px; color: #b7ccc9; }
+  .nav-item.active { background: rgba(255,255,255,.12); color: #fff; font-weight: 600; }
+  .badge-n { background: #fecaca; color: #7f1d1d; font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 99px; }
+  .nav-foot { margin-top: auto; padding: 14px 8px 4px; border-top: 1px solid rgba(255,255,255,.1); font-size: 12px; color: #a8c3bf; }
+  .nav-foot b { color: #fff; display: block; font-size: 13px; margin-bottom: 2px; }
+  .main { background: #f6f1ea; display: flex; flex-direction: column; }
+  .top { height: 64px; display: flex; align-items: center; padding: 0 28px; gap: 16px; }
+  .crumb { font-size: 15px; font-weight: 700; }
+  .spacer { flex: 1; }
+  .fx { font-size: 12.5px; color: #57534e; background: #fff; border: 1px solid #e7ddd0; padding: 6px 12px; border-radius: 999px; }
+  .toggle { display: flex; background: #fff; border: 1px solid #e7ddd0; border-radius: 999px; padding: 3px; }
+  .toggle button { border: 0; background: transparent; padding: 6px 14px; font: 600 12.5px Inter; color: #78716c; border-radius: 999px; }
+  .toggle button.on { background: #1c3d3a; color: #fff; }
+  .user { display: flex; align-items: center; gap: 10px; font-size: 13px; }
+  .avatar { width: 32px; height: 32px; border-radius: 50%; background: #1c3d3a; color: #fff; display: grid; place-items: center; font-weight: 700; font-size: 12px; }
+  .page { padding: 0 28px 24px; display: flex; flex-direction: column; gap: 16px; }
+  .purpose { font-size: 15px; color: #44403c; line-height: 1.45; max-width: 760px; }
+  .kpis { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+  .kpi { background: #fff; border-radius: 16px; padding: 16px 16px 14px; border: 1px solid #ebe3d6; }
+  .kpi b { display: block; font-size: 28px; letter-spacing: -0.04em; }
+  .kpi span { display: block; margin-top: 4px; font-size: 12.5px; color: #78716c; }
+  .kpi.bad { border-color: #fecaca; }
+  .kpi.bad b { color: #b91c1c; }
+  .kpi.warn { border-color: #fed7aa; }
+  .kpi.warn b { color: #c2410c; }
+  .kpi.ok b { color: #047857; }
+  .split { display: grid; grid-template-columns: 1.05fr .95fr; gap: 14px; }
+  .col h2 { font-size: 18px; display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+  .lead { font-size: 13px; color: #78716c; margin-bottom: 12px; }
+  .q { width: 16px; height: 16px; border-radius: 50%; border: 1px solid #a8a29e; color: #57534e; font-size: 10px; display: inline-grid; place-items: center; font-weight: 700; }
+  .q.on { background: #1c3d3a; border-color: #1c3d3a; color: #fff; }
+  .tip-inline { display: block; background: #1c1917; color: #f5f5f4; font-size: 12px; font-weight: 400; line-height: 1.4; padding: 8px 10px; border-radius: 10px; margin: 6px 0 10px; max-width: 420px; }
+  .filters { display: flex; gap: 6px; margin-bottom: 12px; }
+  .chip { font-size: 12px; background: #fff; border: 1px solid #e7ddd0; padding: 5px 10px; border-radius: 999px; color: #57534e; }
+  .chip.on { background: #1c3d3a; border-color: #1c3d3a; color: #fff; font-weight: 600; }
+  .alert { background: #fff; border-radius: 14px; padding: 14px 16px; border: 1px solid #ebe3d6; border-left: 4px solid #dc2626; margin-bottom: 10px; display: grid; grid-template-columns: 1fr auto; gap: 8px; }
+  .alert.orange { border-left-color: #ea580c; }
+  .alert.gold { border-left-color: #c4a574; }
+  .alert.gray { border-left-color: #a8a29e; }
+  .atype { font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: #b91c1c; margin-bottom: 4px; }
+  .alert.orange .atype { color: #c2410c; }
+  .alert.gold .atype { color: #a16207; }
+  .alert.gray .atype { color: #57534e; }
+  .alert h3 { font-size: 14.5px; font-weight: 650; }
+  .alert p { font-size: 12.5px; color: #78716c; margin-top: 3px; }
+  .amt { font-size: 16px; font-weight: 700; text-align: right; font-variant-numeric: tabular-nums; }
+  .go { font-size: 12.5px; font-weight: 600; color: #1c3d3a; text-align: right; margin-top: 4px; }
+  .nm { font-size: 11.5px; font-weight: 700; color: #9a3412; background: #fff7ed; border: 1px solid #fed7aa; padding: 4px 8px; border-radius: 8px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+  .btn { font: 600 13px Inter; border: 0; padding: 10px 14px; border-radius: 12px; }
+  .btn.pri { background: #1c3d3a; color: #fff; }
+  .btn.sec { background: #fff; color: #1c1917; border: 1px solid #e7ddd0; }
+  .move { background: #fff; border-radius: 14px; padding: 14px 16px; border: 1px solid #ebe3d6; margin-bottom: 10px; display: grid; grid-template-columns: 54px 1fr auto; gap: 12px; align-items: center; }
+  .time { font-size: 12px; color: #78716c; font-weight: 600; }
+  .move h3 { font-size: 14px; }
+  .move p { font-size: 12.5px; color: #78716c; margin-top: 2px; }
+  .cta { font: 600 12.5px Inter; background: #f6f1ea; color: #1c3d3a; border: 0; padding: 8px 12px; border-radius: 10px; }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="nav">
+    <div class="brand">
+      <div class="logo">EM</div>
+      <div><b>Estudio Martínez</b><span>Administración</span></div>
+    </div>
+    <div class="nav-item active"><span>Inicio</span><span class="badge-n">7</span></div>
+    <div class="nav-item">Propietarios</div>
+    <div class="nav-item">Agrupadores</div>
+    <div class="nav-item">Propiedades</div>
+    <div class="nav-item">Proveedores</div>
+    <div class="nav-item">Gastos generales</div>
+    <div class="nav-item">Resúmenes</div>
+    <div class="nav-item">Estadísticas</div>
+    <div class="nav-item">Configuración</div>
+    <div class="nav-foot"><b>Mariana López</b>Lunes 9 de noviembre de 2026</div>
+  </aside>
+  <section class="main">
+    <header class="top">
+      <div class="crumb">Hoy en el estudio</div>
+      <div class="spacer"></div>
+      <div class="fx">Cotización BNA 09/11 · $ 1.132,50</div>
+      <div class="toggle"><button class="on">Local ARS</button><button>USD</button></div>
+      <div class="user"><div class="avatar">ML</div> Mariana López</div>
+    </header>
+    <div class="page">
+      <div class="purpose">Registrás lo que ya cobraste o pagaste por fuera; el sistema no transfiere. Este tablero muestra qué hay que cargar, cobrar, pagar o cerrar hoy.</div>
+      <div class="kpis">
+        <div class="kpi bad"><b>2</b><span>Alquileres impagos</span></div>
+        <div class="kpi warn"><b>3</b><span>Vencidas o sin boleta</span></div>
+        <div class="kpi warn"><b>1</b><span>Resumen sin cerrar</span></div>
+        <div class="kpi ok"><b>0</b><span>Cotización faltante</span></div>
+        <div class="kpi bad"><b>1</b><span>Pago sin comprobante</span></div>
+      </div>
+      <div class="split">
+        <div class="col">
+          <h2>Alertas <span class="q on">?</span></h2>
+          <div class="tip-inline">El mail ya salió; acá seguís el estado. Resolver no paga nada: marca que la causa se atendió.</div>
+          <div class="lead">Misma bandeja para todos los del estudio. Clic abre el origen.</div>
+          <div class="filters">
+            <span class="chip on">Abiertas 5</span>
+            <span class="chip">Vistas</span>
+            <span class="chip">Resueltas</span>
+            <span class="chip">Alquiler</span>
+            <span class="chip">Boleta</span>
+          </div>
+          <div class="alert">
+            <div>
+              <div class="atype">Alquiler impago</div>
+              <h3>4° A · Lucía Fernández no pagó noviembre</h3>
+              <p>Uruguay 2847 · venció el 05/11/2026 · contrato en USD</p>
+            </div>
+            <div><div class="amt">USD 850</div><div class="go">Abrir contrato</div></div>
+          </div>
+          <div class="alert">
+            <div>
+              <div class="atype">Alquiler impago</div>
+              <h3>4° B · Martín Rivas, cuota en pesos</h3>
+              <p>Uruguay 2847 · venció el 10/11/2026</p>
+            </div>
+            <div><div class="amt">$ 980.000</div><div class="go">Abrir contrato</div></div>
+          </div>
+          <div class="alert orange">
+            <div>
+              <div class="atype">Boleta faltante</div>
+              <h3>ABL 4° B sin documento de gasto</h3>
+              <p>3° bimestre 2026 · vence 12/11 · no se confirma sin archivo</p>
+            </div>
+            <div><div class="amt">—</div><div class="go">Cargar boleta</div></div>
+          </div>
+          <div class="alert orange">
+            <div>
+              <div class="atype">Pago sin comprobante</div>
+              <h3>Plomería del Local PB ya pagada</h3>
+              <p>HidroPlom SRL · hay factura, falta ticket o transferencia</p>
+            </div>
+            <div><div class="amt">$ 85.000</div><div class="go">Adjuntar</div></div>
+          </div>
+          <div class="alert gold">
+            <div>
+              <div class="atype">Resultado negativo</div>
+              <h3>Octubre de Paula Moreira cierra en rojo</h3>
+              <p>Pasa a noviembre sin interés y sin pedir depósito</p>
+            </div>
+            <div><div class="amt">− $ 124.300</div><div class="go">Ver resumen</div></div>
+          </div>
+          <div class="alert gray">
+            <div>
+              <div class="atype">Expensa vencida · vista</div>
+              <h3>Ordinaria octubre del 4° A</h3>
+              <p>La cargó el consorcio ajeno · el sistema no la calcula</p>
+            </div>
+            <div><div class="amt">$ 186.400</div><div class="go">Registrar pago</div></div>
+          </div>
+        </div>
+        <div class="col">
+          <h2>Movimientos de hoy <span class="q on">?</span> <span class="nm">No mueve dinero</span></h2>
+          <div class="tip-inline">Atajo del día. También podés registrar el cobro o el pago desde el contrato o la boleta.</div>
+          <div class="lead">Elegí el tipo, buscá el origen y se abre el mismo panel que desde la ficha.</div>
+          <div class="actions">
+            <button class="btn pri">Registrar cobro</button>
+            <button class="btn sec">Registrar pago</button>
+            <button class="btn sec">Cobrar alquiler</button>
+            <button class="btn sec">Cargar boleta</button>
+            <button class="btn sec">Cargar gasto</button>
+          </div>
+          <div class="move">
+            <div class="time">09:40</div>
+            <div>
+              <h3>Cobro alquiler 4° A</h3>
+              <p>Lucía Fernández · transferencia Galicia ya hecha</p>
+            </div>
+            <div style="text-align:right;"><div class="amt">USD 850</div><button class="cta">Cobrar</button></div>
+          </div>
+          <div class="move">
+            <div class="time">10:15</div>
+            <div>
+              <h3>Cobro alquiler 4° B</h3>
+              <p>Martín Rivas · efectivo en caja del estudio</p>
+            </div>
+            <div style="text-align:right;"><div class="amt">$ 980.000</div><button class="cta">Cobrar</button></div>
+          </div>
+          <div class="move">
+            <div class="time">11:05</div>
+            <div>
+              <h3>Cargar boleta ABL 4° B</h3>
+              <p>Llegó el PDF de AGIP esta mañana</p>
+            </div>
+            <div style="text-align:right;"><button class="cta">Cargar</button></div>
+          </div>
+          <div class="move">
+            <div class="time">12:20</div>
+            <div>
+              <h3>Pago expensa 4° A</h3>
+              <p>Transferencia al consorcio · adjuntar constancia</p>
+            </div>
+            <div style="text-align:right;"><div class="amt">$ 186.400</div><button class="cta">Pagar</button></div>
+          </div>
+          <div class="move">
+            <div class="time">14:00</div>
+            <div>
+              <h3>Comprobante plomería Local PB</h3>
+              <p>Ya pagado a HidroPlom · falta el ticket</p>
+            </div>
+            <div style="text-align:right;"><div class="amt">$ 85.000</div><button class="cta">Adjuntar</button></div>
+          </div>
+          <div class="move">
+            <div class="time">16:30</div>
+            <div>
+              <h3>Cerrar resumen octubre</h3>
+              <p>Paula Moreira · el negativo arrastra a noviembre</p>
+            </div>
+            <div style="text-align:right;"><div class="amt">− $ 124.300</div><button class="cta">Cerrar</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+</body>
+</html>

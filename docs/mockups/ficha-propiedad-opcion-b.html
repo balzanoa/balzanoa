@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8" />
+<title>P-14 Ficha de propiedad — Opción B</title>
+<style>
+  @font-face { font-family: Inter; src: url("file:///usr/share/fonts/truetype/macos/Inter-Regular.ttf"); font-weight: 400; }
+  @font-face { font-family: Inter; src: url("file:///usr/share/fonts/truetype/macos/Inter-Medium.ttf"); font-weight: 500; }
+  @font-face { font-family: Inter; src: url("file:///usr/share/fonts/truetype/macos/Inter-SemiBold.ttf"); font-weight: 600; }
+  @font-face { font-family: Inter; src: url("file:///usr/share/fonts/truetype/macos/Inter-Bold.ttf"); font-weight: 700; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #efe8dc; font-family: Inter, system-ui, sans-serif; color: #1c1917; }
+  body { width: 1280px; height: 1180px; overflow: hidden; }
+  .app { display: grid; grid-template-columns: 220px 1fr; height: 1180px; }
+  .nav { background: #1c3d3a; color: #d7e4e2; padding: 22px 16px; display: flex; flex-direction: column; gap: 4px; }
+  .brand { display: flex; align-items: center; gap: 10px; padding: 0 4px 22px; }
+  .logo { width: 34px; height: 34px; border-radius: 10px; background: #c4a574; color: #1c1917; font-weight: 800; font-size: 13px; display: grid; place-items: center; }
+  .brand b { color: #fff; font-size: 14px; display: block; }
+  .brand span { color: #a8c3bf; font-size: 11px; }
+  .nav-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 10px; font-size: 13.5px; color: #b7ccc9; }
+  .nav-item.active { background: rgba(255,255,255,.12); color: #fff; font-weight: 600; }
+  .nav-foot { margin-top: auto; padding: 14px 8px 4px; border-top: 1px solid rgba(255,255,255,.1); font-size: 12px; color: #a8c3bf; }
+  .nav-foot b { color: #fff; display: block; font-size: 13px; margin-bottom: 2px; }
+  .main { background: #f6f1ea; display: flex; flex-direction: column; min-width: 0; }
+  .top { height: 64px; display: flex; align-items: center; padding: 0 28px; gap: 16px; }
+  .crumb { font-size: 13px; color: #78716c; }
+  .crumb b { color: #1c1917; }
+  .spacer { flex: 1; }
+  .toggle { display: flex; background: #fff; border: 1px solid #e7ddd0; border-radius: 999px; padding: 3px; }
+  .toggle button { border: 0; background: transparent; padding: 6px 14px; font: 600 12.5px Inter; color: #78716c; border-radius: 999px; }
+  .toggle button.on { background: #1c3d3a; color: #fff; }
+  .user { display: flex; align-items: center; gap: 10px; font-size: 13px; }
+  .avatar { width: 32px; height: 32px; border-radius: 50%; background: #1c3d3a; color: #fff; display: grid; place-items: center; font-weight: 700; font-size: 12px; }
+  .page { padding: 0 28px 24px; display: flex; flex-direction: column; gap: 16px; }
+  .purpose { font-size: 13.5px; color: #44403c; line-height: 1.45; }
+  .hero { background: #fff; border-radius: 18px; padding: 22px 24px 0; border: 1px solid #ebe3d6; }
+  .hero-top { display: flex; justify-content: space-between; gap: 20px; }
+  h1 { font-size: 26px; letter-spacing: -0.03em; font-weight: 700; }
+  .addr { margin-top: 6px; color: #78716c; font-size: 14px; }
+  .kpis { display: flex; gap: 10px; }
+  .kpi { background: #f6f1ea; border-radius: 12px; padding: 10px 14px; min-width: 92px; }
+  .kpi b { display: block; font-size: 20px; letter-spacing: -0.03em; }
+  .kpi span { font-size: 11.5px; color: #78716c; }
+  .kpi.warn b { color: #b45309; }
+  .facts { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; margin-top: 20px; padding-top: 16px; border-top: 1px solid #f0e9de; }
+  .facts label { display: flex; align-items: center; gap: 6px; font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: #a8a29e; font-weight: 600; }
+  .facts b { display: block; margin-top: 4px; font-size: 14px; }
+  .q { width: 16px; height: 16px; border-radius: 50%; border: 1px solid #a8a29e; color: #57534e; font-size: 10px; display: inline-grid; place-items: center; font-weight: 700; }
+  .q.on { background: #1c3d3a; border-color: #1c3d3a; color: #fff; }
+  .tip-inline { display: inline-block; background: #1c1917; color: #f5f5f4; font-size: 12px; font-weight: 400; text-transform: none; letter-spacing: 0; line-height: 1.35; padding: 8px 10px; border-radius: 10px; max-width: 340px; }
+  .tabs { display: flex; gap: 8px; margin-top: 18px; }
+  .tab { padding: 12px 4px 14px; margin-right: 18px; color: #a8a29e; font-size: 14.5px; font-weight: 500; border-bottom: 2px solid transparent; }
+  .tab.active { color: #1c3d3a; border-bottom-color: #c4a574; font-weight: 700; }
+  .units { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .ucard { background: #fff; border-radius: 16px; padding: 16px 16px 14px; border: 1px solid #ebe3d6; }
+  .ucard h3 { font-size: 16px; }
+  .ucard .sub { font-size: 12.5px; color: #78716c; margin: 4px 0 12px; }
+  .row { display: flex; justify-content: space-between; font-size: 12.5px; padding: 4px 0; }
+  .row span { color: #78716c; }
+  .badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 999px; }
+  .b-ok { background: #ecfdf5; color: #047857; }
+  .b-usd { background: #eff6ff; color: #1d4ed8; }
+  .b-ars { background: #f5f0e6; color: #92400e; }
+  .gastos { display: grid; grid-template-columns: 1.4fr .9fr; gap: 12px; }
+  .panel { background: #fff; border-radius: 16px; padding: 16px 18px; border: 1px solid #ebe3d6; }
+  .panel h2 { font-size: 16px; margin-bottom: 4px; }
+  .panel .lead { font-size: 12.5px; color: #78716c; margin-bottom: 14px; }
+  .actions { display: flex; gap: 8px; margin-bottom: 14px; }
+  .btn { font: 600 12.5px Inter; border: 0; padding: 8px 12px; border-radius: 10px; }
+  .btn.pri { background: #1c3d3a; color: #fff; }
+  .btn.sec { background: #f6f1ea; color: #1c1917; }
+  .gitem { display: grid; grid-template-columns: 92px 1fr auto; gap: 12px; align-items: center; padding: 9px 0; border-top: 1px solid #f0e9de; }
+  .gitem:first-of-type { border-top: 0; }
+  .st { font-size: 11px; font-weight: 700; padding: 4px 8px; border-radius: 8px; display: inline-block; }
+  .venc { background: #fef2f2; color: #b91c1c; }
+  .sin { background: #fff7ed; color: #c2410c; }
+  .pend { background: #fefce8; color: #a16207; }
+  .ok { background: #ecfdf5; color: #047857; }
+  .warn { background: #f5f5f4; color: #44403c; }
+  .gt { font-weight: 650; font-size: 13.5px; }
+  .gs { font-size: 12px; color: #78716c; margin-top: 2px; }
+  .amt { font-size: 15px; font-weight: 700; text-align: right; font-variant-numeric: tabular-nums; }
+  .files { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
+  .file { font-size: 11px; background: #f6f1ea; border-radius: 8px; padding: 4px 8px; display: inline-flex; align-items: center; gap: 6px; }
+  .ext { font-size: 9px; font-weight: 800; background: #dc2626; color: #fff; padding: 2px 4px; border-radius: 4px; }
+  .ext.jpg { background: #2563eb; }
+  .attgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .adoc { border: 1px solid #ebe3d6; border-radius: 12px; overflow: hidden; background: #faf8f4; }
+  .preview { height: 72px; background: repeating-linear-gradient(180deg, #fff 0 10px, #f3eee6 10px 12px); position: relative; }
+  .preview .tag { position: absolute; top: 8px; left: 8px; background: #dc2626; color: #fff; font-size: 10px; font-weight: 800; padding: 2px 6px; border-radius: 4px; }
+  .preview .tag.jpg { background: #2563eb; }
+  .adoc p { padding: 8px 10px 10px; font-size: 12px; font-weight: 600; line-height: 1.3; }
+  .adoc span { display: block; font-weight: 400; color: #78716c; font-size: 11px; margin-top: 2px; }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="nav">
+    <div class="brand">
+      <div class="logo">EM</div>
+      <div><b>Estudio Martínez</b><span>Administración</span></div>
+    </div>
+    <div class="nav-item">Inicio</div>
+    <div class="nav-item">Propietarios</div>
+    <div class="nav-item">Agrupadores</div>
+    <div class="nav-item active">Propiedades</div>
+    <div class="nav-item">Proveedores</div>
+    <div class="nav-item">Gastos generales</div>
+    <div class="nav-item">Resúmenes</div>
+    <div class="nav-item">Estadísticas</div>
+    <div class="nav-item">Configuración</div>
+    <div class="nav-foot"><b>Mariana López</b>Lunes 9 de noviembre de 2026</div>
+  </aside>
+  <section class="main">
+    <header class="top">
+      <div class="crumb">Propiedades / <b>Uruguay 2847 · Recoleta</b></div>
+      <div class="spacer"></div>
+      <div class="toggle">
+        <button class="on">Local ARS</button>
+        <button>USD</button>
+      </div>
+      <div class="user"><div class="avatar">ML</div> Mariana López</div>
+    </header>
+    <div class="page">
+      <div class="purpose">Lo de esta propiedad está acá; no hace falta otro menú. Registrás lo ya cobrado o pagado por fuera: el sistema no transfiere.</div>
+      <div class="hero">
+        <div class="hero-top">
+          <div>
+            <h1>Uruguay 2847, Recoleta</h1>
+            <div class="addr">Edificio Uruguay 2847 · CABA · 3 unidades administradas de 8 del predio</div>
+          </div>
+          <div class="kpis">
+            <div class="kpi"><b>3</b><span>Unidades</span></div>
+            <div class="kpi"><b>3</b><span>Contratos</span></div>
+            <div class="kpi warn"><b>2</b><span>Vencidos</span></div>
+          </div>
+        </div>
+        <div class="facts">
+          <div><label>País</label><b>Argentina</b></div>
+          <div><label>Moneda local</label><b>Pesos ARS</b></div>
+          <div>
+            <label>Agrupador <span class="q on">?</span></label>
+            <b>Edificio Uruguay 2847</b>
+          </div>
+          <div>
+            <label>Excepción comisión <span class="q">?</span></label>
+            <b>6% sobre alquiler</b>
+          </div>
+          <div>
+            <label>Punitorios <span class="q">?</span></label>
+            <b>0,5% diario</b>
+          </div>
+          <div>
+            <label>Comprobantes <span class="q">?</span></label>
+            <b>Obligatorios</b>
+          </div>
+        </div>
+        <div style="display:flex;gap:10px;padding:12px 0 0;align-items:flex-start;">
+          <span class="q on">?</span>
+          <span class="tip-inline">Agrupador: a lo sumo uno. País y moneda coinciden con el predio. No es un consorcio: no liquida entre dueños.</span>
+          <span class="tip-inline">Expensa: la carga el consorcio ajeno; el sistema no la calcula.</span>
+        </div>
+        <div class="tabs">
+          <div class="tab">Datos</div>
+          <div class="tab">Unidades</div>
+          <div class="tab">Contratos</div>
+          <div class="tab active">Gastos</div>
+        </div>
+      </div>
+      <div class="units">
+        <div class="ucard">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <h3>4° A</h3><span class="badge b-usd">Contrato USD 850</span>
+          </div>
+          <div class="sub">68 m² · Paula Moreira 100% · Lucía Fernández</div>
+          <div class="row"><span>ABL / AYSA / Edenor</span><span>Partida 21-38492</span></div>
+          <div class="row"><span>Expensa oct</span><span class="badge" style="background:#fef2f2;color:#b91c1c;">Vencida $ 186.400</span></div>
+        </div>
+        <div class="ucard">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <h3>4° B</h3><span class="badge b-ars">Contrato $ 980.000</span>
+          </div>
+          <div class="sub">72 m² · Paula Moreira 100% · Martín Rivas</div>
+          <div class="row"><span>ABL / AYSA / Metrogas</span><span>Partida 21-38493</span></div>
+          <div class="row"><span>ABL 3° bimestre</span><span class="badge" style="background:#fff7ed;color:#c2410c;">Sin boleta</span></div>
+        </div>
+        <div class="ucard">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <h3>Local PB</h3><span class="badge b-usd">Contrato USD 1.200</span>
+          </div>
+          <div class="sub">45 m² · Paula Moreira 100% · Café La Esquina SRL</div>
+          <div class="row"><span>ABL / Edenor</span><span>Partida 21-38480</span></div>
+          <div class="row"><span>Plomería 09/11</span><span class="badge" style="background:#f5f5f4;color:#44403c;">Sin comprobante</span></div>
+        </div>
+      </div>
+      <div class="gastos">
+        <div class="panel">
+          <h2>Gastos de la propiedad</h2>
+          <div class="lead">Tablero de esta ficha. La expensa la carga el consorcio ajeno; el sistema no la calcula. <span class="q on" style="display:inline-grid;vertical-align:middle;">?</span></div>
+          <div class="actions">
+            <button class="btn pri">Cargar expensa</button>
+            <button class="btn sec">Cargar boleta</button>
+            <button class="btn sec">Cargar trabajo</button>
+          </div>
+          <div class="gitem">
+            <span class="st venc">Vencido</span>
+            <div><div class="gt">Expensa ordinaria · 4° A</div><div class="gs">Oct 2026 · vence 08/11/2026 · liquidación adjunta</div>
+              <div class="files"><span class="file"><span class="ext">PDF</span> liq-oct-4a.pdf</span></div></div>
+            <div class="amt">$ 186.400</div>
+          </div>
+          <div class="gitem">
+            <span class="st sin">Sin boleta</span>
+            <div><div class="gt">ABL · 4° B</div><div class="gs">3° bimestre 2026 · vence 12/11/2026 · falta documento</div></div>
+            <div class="amt muted" style="color:#a8a29e;">—</div>
+          </div>
+          <div class="gitem">
+            <span class="st warn">Sin compr.</span>
+            <div><div class="gt">Trabajo plomería · Local PB</div><div class="gs">HidroPlom SRL · 09/11/2026 · factura sin ticket de pago</div>
+              <div class="files"><span class="file"><span class="ext jpg">JPG</span> factura-hidroplom.jpg</span></div></div>
+            <div class="amt">$ 85.000</div>
+          </div>
+          <div class="gitem">
+            <span class="st pend">Pendiente</span>
+            <div><div class="gt">Edenor · 4° A</div><div class="gs">Nov 2026 · vence 18/11/2026</div>
+              <div class="files"><span class="file"><span class="ext">PDF</span> boleta-edenor.pdf</span></div></div>
+            <div class="amt">$ 42.110</div>
+          </div>
+          <div class="gitem">
+            <span class="st pend">Pendiente</span>
+            <div><div class="gt">Expensa extraordinaria · 4° B</div><div class="gs">Oct 2026 · vence 20/11/2026 · a cargo del propietario</div>
+              <div class="files"><span class="file"><span class="ext">PDF</span> extra-oct-4b.pdf</span></div></div>
+            <div class="amt">$ 210.000</div>
+          </div>
+          <div class="gitem">
+            <span class="st ok">Pagado</span>
+            <div><div class="gt">AYSA · 4° A</div><div class="gs">Nov 2026 · boleta + comprobante de pago</div>
+              <div class="files"><span class="file"><span class="ext">PDF</span> boleta.pdf</span><span class="file"><span class="ext jpg">JPG</span> ticket.jpg</span></div></div>
+            <div class="amt">$ 18.900</div>
+          </div>
+        </div>
+        <div class="panel">
+          <h2>Adjuntos visibles</h2>
+          <div class="lead">Documento del gasto y comprobante de pago. No se borra: se anula con motivo.</div>
+          <div class="attgrid">
+            <div class="adoc"><div class="preview"><span class="tag">PDF</span></div><p>Liquidación expensas oct<span>4° A · documento del gasto</span></p></div>
+            <div class="adoc"><div class="preview"><span class="tag">PDF</span></div><p>Expensa extra oct<span>4° B · documento del gasto</span></p></div>
+            <div class="adoc"><div class="preview"><span class="tag">PDF</span></div><p>Boleta Edenor nov<span>4° A · documento del gasto</span></p></div>
+            <div class="adoc"><div class="preview"><span class="tag jpg">JPG</span></div><p>Factura HidroPlom<span>Local PB · documento del gasto</span></p></div>
+            <div class="adoc"><div class="preview"><span class="tag jpg">JPG</span></div><p>Ticket pago AYSA<span>4° A · comprobante de pago</span></p></div>
+            <div class="adoc"><div class="preview" style="display:grid;place-items:center;color:#a8a29e;font-size:12px;background:#f6f1ea;">+ Adjuntar</div><p>Hasta 10 archivos<span>JPG, PNG, WEBP, HEIC, PDF</span></p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+</body>
+</html>
